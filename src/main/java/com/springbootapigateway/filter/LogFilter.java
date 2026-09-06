@@ -41,7 +41,7 @@ public class LogFilter extends OncePerRequestFilter
             log.setEndpoint(request.getRequestURI());
             log.setResponseCode(response.getStatus());
             log.setResponseStatus(getResponseStatus(response.getStatus()));
-            log.setRateLimitExceeded(Boolean.TRUE.equals(request.getAttribute("rateLimitExceeded")));
+            log.setRateLimitViolation(Boolean.TRUE.equals(request.getAttribute("rateLimitExceeded")));
             log.setTimestamp(LocalDateTime.now());
             logService.addLog(log);
         }

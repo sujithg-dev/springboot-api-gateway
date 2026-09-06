@@ -1,7 +1,6 @@
 package com.springbootapigateway.service;
 
 import com.springbootapigateway.model.User;
-import com.springbootapigateway.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
