@@ -26,16 +26,16 @@ import java.util.Map;
 @RequestMapping("/auth")
 public class AuthController
 {
+    private final AuthService authService;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
-    private final AuthService authService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthController(UserService userService, PasswordEncoder passwordEncoder, AuthService authService, AuthenticationManager authenticationManager)
+    public AuthController(AuthService authService, UserService userService, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager)
     {
+        this.authService = authService;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
-        this.authService = authService;
         this.authenticationManager = authenticationManager;
     }
 
