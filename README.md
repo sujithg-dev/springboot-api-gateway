@@ -30,12 +30,13 @@ A Spring Boot API Gateway providing:
 ## Setup Instructions
 
 1. Clone the project 
-   - git clone https://github.com/sujithg-dev/springboot-api-gateway cd SpringBootApiGateway
+   - git clone https://github.com/sujithg-dev/springboot-api-gateway
 
 2. Configure environment variables 
    - PORT=8080
    - MONGODB_URI=mongodb+srv://username:password@apigateway.ocgkv6r.mongodb.net/databasename
-   - RATE_LIMIT_CAPACITY=5 
+   - JWT_SECRET_KEY=<your-base64-secret>
+   - RATE_LIMIT_CAPACITY=5
    - RATE_LIMIT_REQUESTS_PER_MINUTE=5
 
 3. Build the project
