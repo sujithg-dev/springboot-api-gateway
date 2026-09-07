@@ -15,7 +15,7 @@ class AuthServiceTest
     @BeforeEach
     void setUp()
     {
-        authService = new AuthService();
+        authService = new AuthService("VGhpc0lzQVN1ZmZpY2llbnRMb25nU2VjcmV0S2V5MTIzNDU2Nzg=");
         userDetails = User.withUsername("sujith").password("1234").build();
     }
 
