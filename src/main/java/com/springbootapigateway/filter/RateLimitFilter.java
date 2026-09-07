@@ -46,6 +46,7 @@ public class RateLimitFilter extends OncePerRequestFilter
             response.setContentType("application/json");
             response.getWriter().write("""
                     {
+                        "Status": "429 - Too Many Requests",
                         "message": "Rate limit exceeded"
                     }
                     """);

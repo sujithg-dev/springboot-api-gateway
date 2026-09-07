@@ -46,7 +46,10 @@ public class AuthController
         {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body(Map.of("message", "Username already exists!"));
+                    .body(Map.of(
+                            "status", HttpStatus.BAD_REQUEST.value() + " - " + HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                            "message", "Username already exists!"
+                    ));
         }
 
         else
@@ -58,7 +61,10 @@ public class AuthController
 
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(Map.of("message", "User registered successfully."));
+                    .body(Map.of(
+                            "status", HttpStatus.OK.value() + " - " + HttpStatus.OK.getReasonPhrase(),
+                            "message", "User registered successfully."
+                    ));
         }
     }
 
@@ -79,19 +85,28 @@ public class AuthController
 
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(new LoginResponse(loginRequest.getUsername() + " logged in successfully!", token));
+                    .body(new LoginResponse(
+                            HttpStatus.OK.value() + " - " + HttpStatus.OK.getReasonPhrase(),
+                            loginRequest.getUsername() + " logged in successfully.",
+                            token));
         }
         catch (BadCredentialsException e)
         {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of( "message", "Invalid username or password!"));
+                    .body(Map.of(
+                            "status", HttpStatus.UNAUTHORIZED.value() + " - " + HttpStatus.UNAUTHORIZED.getReasonPhrase(),
+                            "message", "Invalid username or password!"
+                    ));
         }
         catch (AuthenticationException e)
         {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("message", "Authentication failed!"));
+                    .body(Map.of(
+                            "status", HttpStatus.UNAUTHORIZED.value() + " - " + HttpStatus.UNAUTHORIZED.getReasonPhrase(),
+                            "message", "Authentication failed!"
+                    ));
         }
     }
 }

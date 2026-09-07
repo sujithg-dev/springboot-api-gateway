@@ -123,7 +123,7 @@ class AuthControllerTest
                                 """)
                 )
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.message").value("sujith logged in successfully!"))
+                .andExpect(jsonPath("$.message").value("sujith logged in successfully."))
                 .andExpect(jsonPath("$.token").value("jwt-token"));
 
         verify(authenticationManager, times(1)).authenticate(any(UsernamePasswordAuthenticationToken.class));
