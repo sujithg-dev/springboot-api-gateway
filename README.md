@@ -19,6 +19,7 @@ A Spring Boot API Gateway providing:
 - Java
 - Spring Boot
 - Spring Security
+- Spring Actuator
 - JWT
 - MongoDB
 - Maven
@@ -110,22 +111,18 @@ The current implementation is suitable for a single gateway instance. For multip
 
 ## Deployment URL
 
-### Base URL:
-
-* https://springbootapigateway-1.onrender.com
-
 ### Register
 
-* https://springbootapigateway-1.onrender.com/auth/register
+* https://springboot-api-gateway.onrender.com/auth/register
 
 ### Login
 
-* https://springbootapigateway-1.onrender.com/auth/login
+* https://springboot-api-gateway.onrender.com/auth/login
 
 ### User Profile
 
-* https://springbootapigateway-1.onrender.com/api/user/profile
+* https://springboot-api-gateway.onrender.com/api/user/profile
 
 ### Health Check
 
-* https://springbootapigateway-1.onrender.com/actuator/health
+* https://springboot-api-gateway.onrender.com/actuator/health
