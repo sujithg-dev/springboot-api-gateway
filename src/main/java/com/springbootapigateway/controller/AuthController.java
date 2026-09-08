@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/auth")
@@ -80,7 +81,7 @@ public class AuthController
             );
 
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            String token = authService.generateToken(userDetails);
+            String token = authService.generateToken(Objects.requireNonNull(userDetails));
 
             return ResponseEntity
                     .status(HttpStatus.OK)

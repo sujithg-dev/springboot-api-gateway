@@ -33,7 +33,6 @@ A Spring Boot API Gateway providing:
 1. Clone the project 
    - git clone https://github.com/sujithg-dev/springboot-api-gateway
 
-
 2. Configure environment variables 
    - PORT=8080
    - MONGODB_URI=mongodb+srv://username:password@apigateway.ocgkv6r.mongodb.net/databasename
@@ -41,10 +40,8 @@ A Spring Boot API Gateway providing:
    - RATE_LIMIT_CAPACITY=5
    - RATE_LIMIT_REQUESTS_PER_MINUTE=5
 
-
 3. Build the project
    - mvn clean package
-
 
 4. Run the application
    - mvn spring-boot:run
