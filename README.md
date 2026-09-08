@@ -19,7 +19,7 @@ A Spring Boot API Gateway providing:
 - Java
 - Spring Boot
 - Spring Security
-- Spring Acutator
+- Spring Actuator
 - JWT
 - MongoDB
 - Maven
