@@ -51,7 +51,6 @@ public class AuthController
                             "message", "Username already exists!"
                     ));
         }
-
         else
         {
             User user = new User();

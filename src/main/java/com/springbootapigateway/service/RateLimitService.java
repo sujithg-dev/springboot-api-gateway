@@ -14,9 +14,7 @@ public class RateLimitService
     private final int capacity;
     private final double refillRatePerSecond;
 
-    public RateLimitService(
-            @Value("${rate-limit.capacity}") int capacity,
-            @Value("${rate-limit.requests-per-minute}") int requestsPerMinute)
+    public RateLimitService(@Value("${rate-limit.capacity}") int capacity, @Value("${rate-limit.requests-per-minute}") int requestsPerMinute)
     {
         this.capacity = capacity;
         this.refillRatePerSecond = requestsPerMinute / 60.0;

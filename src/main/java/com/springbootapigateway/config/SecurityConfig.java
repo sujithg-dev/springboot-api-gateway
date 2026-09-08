@@ -37,13 +37,19 @@ public class SecurityConfig
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
+    public SecurityFilterChain securityFilterChain(HttpSecurity http)
     {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**", "/actuator/**").permitAll().anyRequest().authenticated())
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(authenticationEntryPointImplementation))
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/**", "/actuator/**")
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated())
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(authenticationEntryPointImplementation))
                 .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterAfter(logFilter, AuthFilter.class)
                 .addFilterAfter(rateLimitFilter, LogFilter.class);
@@ -66,7 +72,7 @@ public class SecurityConfig
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration)
     {
         return configuration.getAuthenticationManager();
     }

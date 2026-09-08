@@ -41,7 +41,6 @@ class AuthServiceTest
     void isTokenValid_shouldReturnTrue_whenTokenIsValid()
     {
         String token = authService.generateToken(userDetails);
-
         boolean result = authService.isTokenValid(token, userDetails);
 
         assertTrue(result);
@@ -51,9 +50,7 @@ class AuthServiceTest
     void isTokenValid_shouldReturnFalse_whenUsernameDoesNotMatch()
     {
         String token = authService.generateToken(userDetails);
-
         UserDetails differentUser = User.withUsername("kishore").password("1234").build();
-
         boolean result = authService.isTokenValid(token, differentUser);
 
         assertFalse(result);
@@ -63,7 +60,6 @@ class AuthServiceTest
     void isTokenExpired_shouldReturnFalse_forNewToken()
     {
         String token = authService.generateToken(userDetails);
-
         boolean result = authService.isTokenExpired(token);
 
         assertFalse(result);
