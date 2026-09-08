@@ -37,7 +37,7 @@ A Spring Boot API Gateway providing:
 2. Configure environment variables 
    - PORT=8080
    - MONGODB_URI=mongodb+srv://username:password@apigateway.ocgkv6r.mongodb.net/databasename
-   - JWT_SECRET_KEY=<your-base64-secret>
+   - JWT_SECRET_KEY=<JWT_SECRET_KEY>
    - RATE_LIMIT_CAPACITY=5
    - RATE_LIMIT_REQUESTS_PER_MINUTE=5
 
@@ -53,25 +53,25 @@ A Spring Boot API Gateway providing:
 
 ## API Documentation
 
-The application runs on:
-http://localhost:8080
+The application runs on: http://localhost:8080
 
-### Register User
+### Register
 
 POST /auth/register
 
-{
-"username": "user",
-"password": "password"
+{  
+   "username": "user",  
+   "password": "password"  
 }
+
 
 ### Login
 
 POST /auth/login
 
-{
-"username": "user",
-"password": "password"
+{  
+   "username": "user",  
+   "password": "password"  
 }
 
 Returns a JWT token.
@@ -81,15 +81,14 @@ Returns a JWT token.
 
 GET /api/user/profile
 
-Header:
+Authorization: Bearer Token <JWT_TOKEN>
 
-Authorization: Bearer <JWT_TOKEN>
 
 #### Rate Limit
 
 When the request limit is exceeded:
 
-HTTP 429 Too Many Requests
+Returns HTTP 429 Too Many Requests
 
 
 
