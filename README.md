@@ -19,6 +19,7 @@ A Spring Boot API Gateway providing:
 - Java
 - Spring Boot
 - Spring Security
+- Spring Acutator
 - JWT
 - MongoDB
 - Maven
@@ -36,7 +37,7 @@ A Spring Boot API Gateway providing:
 2. Configure environment variables 
    - PORT=8080
    - MONGODB_URI=mongodb+srv://username:password@apigateway.ocgkv6r.mongodb.net/databasename
-   - JWT_SECRET_KEY=<your-base64-secret>
+   - JWT_SECRET_KEY=your-base64-secret
    - RATE_LIMIT_CAPACITY=5
    - RATE_LIMIT_REQUESTS_PER_MINUTE=5
 
@@ -55,7 +56,7 @@ A Spring Boot API Gateway providing:
 The application runs on:
 http://localhost:8080
 
-### Register User
+### Register
 
 POST /auth/register
 
