@@ -119,6 +119,26 @@ The current implementation is suitable for a single gateway instance. For multip
 
 * https://springboot-api-gateway.onrender.com/api/user/profile
 
+### Metrics
+
+* https://springboot-api-gateway.onrender.com/actuator/metrics
+
+#### Total Requests
+
+* https://springboot-api-gateway.onrender.com/actuator/metrics/gateway.rate_limit.total
+
+#### Total Allowed Requests
+
+* https://springboot-api-gateway.onrender.com/actuator/metrics/gateway.rate_limit.allowed
+
+#### Total Rejected Requests
+
+* https://springboot-api-gateway.onrender.com/actuator/metrics/gateway.rate_limit.rejected
+
+#### Total Authentication Failures
+
+* https://springboot-api-gateway.onrender.com/actuator/metrics/gateway.authentication.failures
+
 ### Health Check
 
 * https://springboot-api-gateway.onrender.com/actuator/health

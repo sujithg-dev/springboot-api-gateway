@@ -1,6 +1,7 @@
 package com.springbootapigateway.filter;
 
 import com.springbootapigateway.service.AuthService;
+import com.springbootapigateway.service.GatewayMetricsService;
 import com.springbootapigateway.service.UserDetailsServiceImplementation;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -20,11 +21,13 @@ public class AuthFilter extends OncePerRequestFilter
 {
     private final AuthService authService;
     private final UserDetailsServiceImplementation userDetailsService;
+    private final GatewayMetricsService metricsService;
 
-    public AuthFilter(AuthService authService, UserDetailsServiceImplementation userDetailsService)
+    public AuthFilter(AuthService authService, UserDetailsServiceImplementation userDetailsService, GatewayMetricsService metricsService)
     {
         this.authService = authService;
         this.userDetailsService = userDetailsService;
+        this.metricsService = metricsService;
     }
 
     @Override
@@ -47,6 +50,8 @@ public class AuthFilter extends OncePerRequestFilter
         }
         catch (Exception e)
         {
+            metricsService.countAuthenticationFailures();
+
             filterChain.doFilter(request, response);
             return;
         }
@@ -60,6 +65,10 @@ public class AuthFilter extends OncePerRequestFilter
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+            else
+            {
+                metricsService.countAuthenticationFailures();
             }
         }
 

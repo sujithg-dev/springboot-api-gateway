@@ -28,6 +28,12 @@ public class LogFilter extends OncePerRequestFilter
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException
     {
+        if (request.getRequestURI().startsWith("/actuator/"))
+        {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         try
         {
             filterChain.doFilter(request, response);

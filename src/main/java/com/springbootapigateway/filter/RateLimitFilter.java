@@ -1,5 +1,6 @@
 package com.springbootapigateway.filter;
 
+import com.springbootapigateway.service.GatewayMetricsService;
 import com.springbootapigateway.service.RateLimitService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,9 +18,11 @@ import java.io.IOException;
 public class RateLimitFilter extends OncePerRequestFilter
 {
     private final RateLimitService rateLimitService;
+    private final GatewayMetricsService metricsService;
 
-    public RateLimitFilter(RateLimitService rateLimitService)
+    public RateLimitFilter(GatewayMetricsService metricsService, RateLimitService rateLimitService)
     {
+        this.metricsService = metricsService;
         this.rateLimitService = rateLimitService;
     }
 
@@ -29,6 +32,14 @@ public class RateLimitFilter extends OncePerRequestFilter
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         String username;
+
+        if (request.getRequestURI().startsWith("/actuator/"))
+        {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        metricsService.countTotalRequests();
 
         if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getPrincipal()))
         {
@@ -41,6 +52,8 @@ public class RateLimitFilter extends OncePerRequestFilter
 
         if (!rateLimitService.allowRequest(username))
         {
+            metricsService.countRejectedRequests();
+
             request.setAttribute("rateLimitExceeded", true);
             response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
             response.setContentType("application/json");
@@ -53,6 +66,8 @@ public class RateLimitFilter extends OncePerRequestFilter
 
             return;
         }
+
+        metricsService.countAllowedRequests();
 
         filterChain.doFilter(request, response);
     }

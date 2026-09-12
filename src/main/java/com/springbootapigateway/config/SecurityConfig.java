@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig
 {
     private final AuthFilter authFilter;
@@ -37,7 +39,7 @@ public class SecurityConfig
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationProvider authenticationProvider) throws Exception
     {
         http
                 .csrf(AbstractHttpConfigurer::disable)
@@ -50,6 +52,7 @@ public class SecurityConfig
                         .authenticated())
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint(authenticationEntryPointImplementation))
+                .authenticationProvider(authenticationProvider)
                 .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterAfter(logFilter, AuthFilter.class)
                 .addFilterAfter(rateLimitFilter, LogFilter.class);
@@ -62,6 +65,7 @@ public class SecurityConfig
     {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsServiceImplementation);
         provider.setPasswordEncoder(passwordEncoder());
+
         return provider;
     }
 
@@ -72,7 +76,7 @@ public class SecurityConfig
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration)
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception
     {
         return configuration.getAuthenticationManager();
     }

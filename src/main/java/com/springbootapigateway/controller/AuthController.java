@@ -5,6 +5,7 @@ import com.springbootapigateway.dto.LoginResponse;
 import com.springbootapigateway.dto.RegisterRequest;
 import com.springbootapigateway.model.User;
 import com.springbootapigateway.service.AuthService;
+import com.springbootapigateway.service.GatewayMetricsService;
 import com.springbootapigateway.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,13 +32,15 @@ public class AuthController
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final GatewayMetricsService metricsService;
 
-    public AuthController(AuthService authService, UserService userService, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager)
+    public AuthController(AuthService authService, UserService userService, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, GatewayMetricsService metricsService)
     {
         this.authService = authService;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
+        this.metricsService = metricsService;
     }
 
     @PostMapping("/register")
@@ -92,6 +95,8 @@ public class AuthController
         }
         catch (BadCredentialsException e)
         {
+            metricsService.countAuthenticationFailures();
+
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of(
@@ -101,6 +106,8 @@ public class AuthController
         }
         catch (AuthenticationException e)
         {
+            metricsService.countAuthenticationFailures();
+
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of(
