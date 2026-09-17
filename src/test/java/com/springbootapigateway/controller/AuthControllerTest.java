@@ -2,10 +2,7 @@ package com.springbootapigateway.controller;
 
 import com.springbootapigateway.filter.AuthFilter;
 import com.springbootapigateway.model.User;
-import com.springbootapigateway.service.AuthService;
-import com.springbootapigateway.service.LogService;
-import com.springbootapigateway.service.RateLimitService;
-import com.springbootapigateway.service.UserService;
+import com.springbootapigateway.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
@@ -46,6 +43,9 @@ class AuthControllerTest
 
     @MockitoBean
     private RateLimitService rateLimitService;
+
+    @MockitoBean
+    private GatewayMetricsService gatewayMetricsService;
 
     @MockitoBean
     private PasswordEncoder passwordEncoder;

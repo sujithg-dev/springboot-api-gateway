@@ -29,6 +29,9 @@ class UserControllerTest
     private RateLimitService rateLimitService;
 
     @MockitoBean
+    private GatewayMetricsService gatewayMetricsService;
+
+    @MockitoBean
     private UserDetailsServiceImplementation userDetailsServiceImplementation;
 
     @MockitoBean
