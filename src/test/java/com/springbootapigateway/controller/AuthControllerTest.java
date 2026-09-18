@@ -100,6 +100,44 @@ class AuthControllerTest
     }
 
     @Test
+    void userRegister_shouldReturnBadRequest_whenUsernameIsBlankOrLessThan4() throws Exception
+    {
+        mockMvc.perform(post("/auth/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "username": "",
+                                    "password": "1234"
+                                }
+                                """)
+                )
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Username must be at least 4 characters!"));
+
+        verify(userService, never()).addUser(any(User.class));
+        verify(passwordEncoder, never()).encode(anyString());
+    }
+
+    @Test
+    void userRegister_shouldReturnBadRequest_whenPasswordBlankOrIsLessThan4() throws Exception
+    {
+        mockMvc.perform(post("/auth/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "username": "sujith",
+                                    "password": ""
+                                }
+                                """)
+                )
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Password must be at least 4 characters!"));
+
+        verify(userService, never()).addUser(any(User.class));
+        verify(passwordEncoder, never()).encode(anyString());
+    }
+
+    @Test
     void userLogin_shouldReturnToken_whenCredentialsAreValid() throws Exception
     {
         UserDetails userDetails = org.springframework.security.core.userdetails.User

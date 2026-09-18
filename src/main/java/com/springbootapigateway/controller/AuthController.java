@@ -7,6 +7,7 @@ import com.springbootapigateway.model.User;
 import com.springbootapigateway.service.AuthService;
 import com.springbootapigateway.service.GatewayMetricsService;
 import com.springbootapigateway.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -44,7 +45,7 @@ public class AuthController
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> userRegister(@RequestBody RegisterRequest registerRequest)
+    public ResponseEntity<?> userRegister(@Valid @RequestBody RegisterRequest registerRequest)
     {
         if (userService.findByUsername(registerRequest.getUsername()).isPresent())
         {
